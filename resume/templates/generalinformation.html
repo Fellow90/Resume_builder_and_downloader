@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Information</title>
+</head>
+<body>
+    <!-- Display personal information form -->
+    <h1>General Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+        <!-- Display delete button -->
+        <button type="submit" name="delete">Delete</button>
+    </form>
+
+    <h3>User Details</h3>
+    <!-- Display user details -->
+
+</body>
+</html>

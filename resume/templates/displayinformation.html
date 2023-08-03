@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Information</title>
+</head>
+<body>
+    <h1>General Information</h1>
+    <h3>User Details</h3>
+    <p>Full Name: {{ user_details.full_name }}</p>
+    <p>Address: {{ user_details.address }}</p>
+    <p>Gender: {{ user_details.get_gender_display }}</p>
+    <p>Phone: {{ user_details.phone }}</p>
+    <p>Date of Birth: {{ user_details.date_of_birth }}</p>
+    <p>Email: {{ user_details.email }}</p>
+    {% if user_details.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="150">
+    {% endif %}
+
+    <h3>General Information</h3>
+    <p>Linkedin: {{ personal_info.linkedin }}</p>
+    <p>Github: {{ personal_info.github }}</p>
+    <p>Summary: {{ personal_info.summary }}</p>
+
+    <h3>Education</h3>
+    <ul>
+        {% for education in educations %}
+            <li>{{ education.title }} in {{ education.faculty }} from {{ education.institution_name }}, {{ education.start_date }} - {{ education.end_date }} ({{ education.score }})</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Job History</h3>
+    <ul>
+        {% for job in jobs %}
+            <li>{{ job.title }} at {{ job.company }} as {{ job.position }} from {{ job.startdate }} - {{ job.enddate }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Projects</h3>
+    <ul>
+        {% for project in projects %}
+            <li>{{ project.title }}: {{ project.description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Skills</h3>
+    <ul>
+        {% for skill in skills %}
+            <li>{{ skill.skill }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Languages</h3>
+    <ul>
+        {% for language in languages %}
+            <li>{{ language.language }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>References</h3>
+    <ul>
+        {% for reference in references %}
+            <li>{{ reference.reference }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

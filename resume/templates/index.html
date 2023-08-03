@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Vlog!! Welcome to my Channel!!</title>
+</head>
+<body>
+    <p>Welcome to your profile!!
+        <a href="{% url 'resume:logout_user' %}">Logout Here</a>
+        <a href="{% url 'resume:personalinformation' %}">Personal Information</a>
+        <a href="{% url 'resume:userdetails' %}">User Details</a>
+        <a href="{% url 'resume:education' %}">Education</a>
+        <a href="{% url 'resume:job' %}">Job</a>
+        <a href="{% url 'resume:project' %}">Project</a>
+        <a href="{% url 'resume:skill' %}">Skill</a>
+        <a href="{% url 'resume:language' %}">Languages</a>
+        <a href="{% url 'resume:reference' %}">References</a>
+        <a href="{% url 'resume:displayinformation' %}">Display Infomation</a>
+
+
+
+    </p>
+    id:{{user.user_id}}
+    name:{{user.full_name}}
+    phone:{{user.phone}}
+    email:{{user.email}}
+
+    
+</body>
+</html>
