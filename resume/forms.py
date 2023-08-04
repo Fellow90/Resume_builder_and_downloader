@@ -38,6 +38,9 @@ class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
 
 class JobForm(forms.ModelForm):
     class Meta:

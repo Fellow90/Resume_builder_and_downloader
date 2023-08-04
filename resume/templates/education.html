@@ -4,18 +4,22 @@
     <title>Education Information</title>
 </head>
 <body>
-    <!-- Display personal information form -->
     <h1>Education Information</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
-        <!-- Display delete button -->
-        <button type="submit" name="delete">Delete</button>
+        <p><strong>College and University</strong></p>
+        <input type="submit" name="Add" value="Add">
+        <input type="submit" name="Save" value="Save">
+        <input type="submit" name="Delete" value="Delete">
+
+
+
+
+        
     </form>
 
     <h3>User Details</h3>
-    <!-- Display user details -->
 
 </body>
-</html>
+</html> 

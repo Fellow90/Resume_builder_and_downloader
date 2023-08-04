@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Details</title>
+    <title>General Details</title>
 </head>
 <body>
-    <h1>User Details</h1>
-
-    <!-- Display the form to create a new user -->
-    <h2>Create New User</h2>
+    <!-- Display personal information form -->
+    <h1>User Information</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Create User</button>
+        <input type = "submit" name = "Save" value = "Save">
     </form>
-
-    <!-- Display all existing users -->
-    <h2>All Users</h2>
-    <ul>
-        {% for user in users %}
-            <li>{{ user_details.full_name }} - {{ user_details.email }}</li>
-        {% empty %}
-            <li>No users found.</li>
-        {% endfor %}
-    </ul>
 </body>
 </html>
