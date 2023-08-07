@@ -20,14 +20,17 @@
         <a href="{% url 'resume:downloadinpdf' %}">Download In PDF?</a>
         <a href="{% url 'resume:logout_user' %}">Logout Here</a>
 
-
-        
-
-
-
-    </p>
-
-    
+    </p>  
 </body>
 <p><strong>Stay Connected with us !! We will have very good updates soon</strong></p>
+<div class="container">
+    <p>We have got three samples of resume. Please select one to get your desirable one!!</p>
+    <!-- <form method="post" action = "{% url 'resume:home' %}"> -->
+        <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="sample" value="First Sample">
+        <input type="submit" name="sample" value="Second Sample">
+        <input type="submit" name="sample" value="Third Sample">
+    </form>
+</div>
 </html>

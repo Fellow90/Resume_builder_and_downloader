@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV - Template 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-header {
+            font-size: 20px;
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .section-content {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CV - Template 1</h1>
+    <div class="section">
+        <div class="section-header">General Information</div>
+        <div class="section-content">
+            <h2>User Details</h2>
+            <p><strong>Full Name:</strong> {{ user_details.full_name }}</p>
+            <p><strong>Address:</strong> {{ user_details.address }}</p>
+            <p><strong>Gender:</strong> {{ user_details.get_gender_display }}</p>
+            <p><strong>Phone:</strong> {{ user_details.phone }}</p>
+            <p><strong>Date of Birth:</strong> {{ user_details.date_of_birth }}</p>
+            <p><strong>Email:</strong> {{ user_details.email }}</p>
+            {% if user_details.profile_picture %}
+                <img src="{{ user_details.profile_picture.url }}" alt="Profile Picture" width="150">
+            {% endif %}
+            <h2>General Information</h2>
+            <p><strong>Linkedin:</strong> {{ personal_info.linkedin }}</p>
+            <p><strong>Github:</strong> {{ personal_info.github }}</p>
+            <p><strong>Summary:</strong> {{ personal_info.summary }}</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Education</div>
+        <div class="section-content">
+            <ul>
+                {% for education in educations %}
+                    <li><strong>{{ education.title }} in {{ education.faculty }}</strong> from {{ education.institution_name }}, {{ education.start_date }} - {{ education.end_date }} ({{ education.score }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Job History</div>
+        <div class="section-content">
+            <ul>
+                {% for job in jobs %}
+                    <li><strong>{{ job.title }} at {{ job.company }}</strong> as {{ job.position }} from {{ job.startdate }} - {{ job.enddate }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Projects</div>
+        <div class="section-content">
+            <ul>
+                {% for project in projects %}
+                    <li><strong>{{ project.title }}:</strong> {{ project.description }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Skills</div>
+        <div class="section-content">
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill.skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Languages</div>
+        <div class="section-content">
+            <ul>
+                {% for language in languages %}
+                    <li>{{ language.language }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">References</div>
+        <div class="section-content">
+            <ul>
+                {% for reference in references %}
+                    <li>{{ reference.reference }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+</body>
+</html>

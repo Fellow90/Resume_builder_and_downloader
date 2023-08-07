@@ -3,7 +3,7 @@ from . import views
 app_name = 'resume'
 
 urlpatterns = [
-    path('home/', views.indexpage,name="indexpage"),
+    path('home/', views.home,name="home"),
     path('register/', views.register_user, name = 'register_user'),
     path('login/', views.login_user, name = 'login_user'),
     path('logout/',views.logout_user, name = 'logout_user'),
@@ -17,5 +17,9 @@ urlpatterns = [
     path('reference/',views.reference, name = 'reference'),
     path('displayinformation/',views.displayinformation,name='displayinformation'),
     path('downloadinpdf/',views.downloadinpdf,name='downloadinpdf'),
+
+
+    
+
 
 ]

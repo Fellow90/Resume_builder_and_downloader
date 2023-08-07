@@ -42,7 +42,7 @@ def login_user(request):
             if user.exists():
                 user = user.first()
                 request.session['user_id'] = user.id
-                return redirect(reverse('resume:indexpage'))
+                return redirect(reverse('resume:home'))
             else:
                 return HttpResponse("Invalid Username or password.")
     else:
@@ -55,17 +55,18 @@ def logout_user(request):
     request.session.pop('user_id',None)
     return redirect(reverse('resume:login_user'))
 
-def indexpage(request):
-    user_id = request.session.get('user_id')
+### home function in general
+# def home(request):
+#     user_id = request.session.get('user_id')
 
-    if user_id:    
-        user = CustomUser.objects.filter(id = user_id).first()
-        context = {
-            'user':user,
-        }
-        return render(request,'index.html',context)
-    else:
-        return redirect(reverse('resume:login_user'))
+#     if user_id:    
+#         user = CustomUser.objects.filter(id = user_id).first()
+#         context = {
+#             'user':user,
+#         }
+#         return render(request,'index.html',context)
+#     else:
+#         return redirect(reverse('resume:login_user'))
     
 
 
@@ -189,9 +190,7 @@ def userdetails(request):
                     if form.is_valid():
                         form.save()
                         return redirect(reverse('resume:userdetails'))
-                # elif 'Delete' in request.POST:
-                #     user_details.delete()
-                #     return redirect(reverse('resume:userdetails'))    
+ 
                 
             else:
                 form = CustomUserForm(instance=user_details)
@@ -427,7 +426,10 @@ def reference(request):
             if request.method == 'POST':
                 if 'delete' in request.POST:
                     reference_id = int(request.POST.get('delete'))
-                    reference = get_object_or_404(Reference, id=reference_id, user=user)
+                    reference = Reference.objects.filter(id=reference_id, user = user)
+
+                    
+                    # reference = get_object_or_404(Reference, id=reference_id, user=user)
                     reference.delete()
                     return redirect(reverse('resume:reference'))
 
@@ -460,7 +462,6 @@ def displayinformation(request):
 
         if user:
             user_details = user
-            # import ipdb;ipdb.set_trace()
             
             personal_info = user.informations.first()
             educations = user.educations.all()
@@ -538,3 +539,116 @@ def downloadinpdf(request):
             return HttpResponse("User profile not found.")
     else:
         return(redirect(reverse('resume:login_user')))
+  
+
+    
+def home(request):
+    user_id = request.session.get('user_id')
+    if user_id:    
+        user = CustomUser.objects.filter(id = user_id).first()
+        if user:
+            user_details = user           
+            personal_info = user.informations.first()
+            educations = user.educations.all()
+            jobs = user.jobs.all()
+            projects = user.projects.all()
+            skills = user.skills.all()
+            languages = user.languages.all()
+            references = user.references.all()
+            context = {
+                'user': user,
+                'user_details':user_details,
+                'personal_info': personal_info,
+                'educations': educations,
+                'jobs': jobs,
+                'projects': projects,
+                'skills': skills,
+                'languages': languages,
+                'references': references,
+            }
+            sample = request.POST.get('sample')
+            if sample == 'First Sample':
+                template = get_template('firstsample.html')
+                              
+            elif sample == 'Second Sample':               
+                template = get_template('secondsample.html')
+                       
+            elif sample == 'Third Sample':                
+                template = get_template('thirdsample.html')
+            
+            else:
+                return render(request,'index.html',context)
+
+            html = template.render(context)
+            pdf_file = '/home/aayulogic/Nabaraj/ResumeBuilder/resume/generatedpdf/file.pdf'
+            with open(pdf_file,'wb') as f:
+                pisa_status = pisa.CreatePDF(html, dest = f)
+            if pisa_status.err:
+                return HttpResponse('Failed to generate PDF.',status = 500)
+            else:
+                with open(pdf_file,'rb') as f:
+                    response = HttpResponse(f.read(), content_type='application/pdf')
+                    response['Content-Disposition'] = 'attachment; filename="Resume.pdf"'
+                    return response           
+        else:
+            return HttpResponse("User not found.")      
+    else:
+        return redirect(reverse('resume:login_user'))
+
+
+
+# #### passing with the dictionary of sample : template
+# def home(request):
+#     user_id = request.session.get('user_id')
+#     if user_id:    
+#         user = CustomUser.objects.filter(id=user_id).first()
+#         if user:
+#             user_details = user           
+#             personal_info = user.informations.first()
+#             educations = user.educations.all()
+#             jobs = user.jobs.all()
+#             projects = user.projects.all()
+#             skills = user.skills.all()
+#             languages = user.languages.all()
+#             references = user.references.all()
+#             context = {
+#                 'user': user,
+#                 'user_details': user_details,
+#                 'personal_info': personal_info,
+#                 'educations': educations,
+#                 'jobs': jobs,
+#                 'projects': projects,
+#                 'skills': skills,
+#                 'languages': languages,
+#                 'references': references,
+#             }
+
+#             sample_templates = {
+#                 'First Sample': 'firstsample.html',
+#                 'Second Sample': 'secondsample.html',
+#                 'Third Sample': 'thirdsample.html',
+#             }
+
+#             sample = request.POST.get('sample')
+#             if sample in sample_templates:
+#                 template_name = sample_templates[sample]
+#                 template = get_template(template_name)
+#                 html = template.render(context)
+#                 pdf_file = '/home/aayulogic/Nabaraj/ResumeBuilder/resume/generatedpdf/file.pdf'
+#                 with open(pdf_file, 'wb') as f:
+#                     pisa_status = pisa.CreatePDF(html, dest=f)
+#                 if pisa_status.err:
+#                     return HttpResponse('Failed to generate PDF.', status=500)
+#                 else:
+#                     with open(pdf_file, 'rb') as f:
+#                         response = HttpResponse(f.read(), content_type='application/pdf')
+#                         response['Content-Disposition'] = 'attachment; filename="CV.pdf"'
+#                         return response
+
+#             return render(request, 'index.html', context)
+
+#         else:
+#             return HttpResponse("User not found.")      
+#     else:
+#         return redirect(reverse('resume:login_user'))
+    
