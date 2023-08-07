@@ -1,25 +1,48 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Education Information</title>
 </head>
 <body>
+
+    <div class="menu">
+        <a href="{% url 'resume:home' %}">Home</a>
+        <a href="{% url 'resume:userdetails' %}">User Details</a>
+        <a href="{% url 'resume:personalinformation' %}">Personal Information</a>
+        <a href="{% url 'resume:education' %}">Education</a>
+        <a href="{% url 'resume:job' %}">Job</a>
+        <a href="{% url 'resume:project' %}">Project</a>
+        <a href="{% url 'resume:skill' %}">Skill</a>
+        <a href="{% url 'resume:language' %}">Languages</a>
+        <a href="{% url 'resume:reference' %}">References</a>
+        <a href="{% url 'resume:displayinformation' %}">Display Infomation</a>
+        <a href="{% url 'resume:downloadinpdf' %}">Download In PDF?</a>
+        <a href="{% url 'resume:logout_user' %}">Logout Here</a>
+
+
+    </div>
     <h1>Education Information</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="submit" name="save" value="Save">
         <p><strong>College and University</strong></p>
-        <input type="submit" name="Add" value="Add">
-        <input type="submit" name="Save" value="Save">
-        <input type="submit" name="Delete" value="Delete">
-
-
-
-
-        
+        <ul>
+        {% for education in education_info %}
+            <li>{{ education.title }} in {{ education.faculty }} from {{ education.institution_name }}, {{ education.start_date }} - {{ education.end_date }} ({{ education.score }})</li>
+            {% endfor %}
+        </ul>
     </form>
+    {% for education in education_info %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="{{ education.id }}" > 
+            <strong> Delete : {{education.id}}, {{education.title}}  ??</strong>
 
-    <h3>User Details</h3>
-
+            <input type="submit" value="Delete">
+        </form>
+    {% endfor %}
 </body>
-</html> 
+</html>
+

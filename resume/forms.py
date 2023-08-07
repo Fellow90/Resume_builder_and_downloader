@@ -34,10 +34,12 @@ class PersonalInformationForm(forms.ModelForm):
         model = PersonalInformation
         fields = ['linkedin','github','summary']
 
+
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
         fields = '__all__'
+        ### not displaying the user field in each form
         widgets = {
             'user': forms.HiddenInput(),
         }
@@ -46,23 +48,38 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
 
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
 
 class SkillForm(forms.ModelForm):
     class Meta:
         model = Skill
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
 
 class LanguageForm(forms.ModelForm):
     class Meta:
         model = Language
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
 
 class ReferenceForm(forms.ModelForm):
     class Meta:
         model = Reference
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput(),
+        }

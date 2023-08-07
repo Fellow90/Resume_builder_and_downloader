@@ -4,12 +4,32 @@
     <title>General Details</title>
 </head>
 <body>
+    <div class="menu">
+        <a href="{% url 'resume:home' %}">Home</a>
+
+        <a href="{% url 'resume:userdetails' %}">User Details</a>
+        <a href="{% url 'resume:personalinformation' %}">Personal Information</a>
+        <a href="{% url 'resume:education' %}">Education</a>
+        <a href="{% url 'resume:job' %}">Job</a>
+        <a href="{% url 'resume:project' %}">Project</a>
+        <a href="{% url 'resume:skill' %}">Skill</a>
+        <a href="{% url 'resume:language' %}">Languages</a>
+        <a href="{% url 'resume:reference' %}">References</a>
+        <a href="{% url 'resume:displayinformation' %}">Display Infomation</a>
+        <a href="{% url 'resume:downloadinpdf' %}">Download In PDF?</a>
+        <a href="{% url 'resume:logout_user' %}">Logout Here</a>
+
+
+    </div>
     <!-- Display personal information form -->
     <h1>User Information</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type = "submit" name = "Save" value = "Save">
+
+        
+
     </form>
 </body>
 </html>

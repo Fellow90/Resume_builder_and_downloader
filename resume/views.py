@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import reverse
 import requests
-
-
 from xhtml2pdf import pisa
 
 ### library for template loading
@@ -12,7 +10,6 @@ from django.template import Context
 from django.http import HttpResponse
 from .models import CustomUser,PersonalInformation, Education, Project, Job, Reference, Language, Skill
 
-## added from here
 ##working with django forms
 from .forms import CustomUserForm,LoginForm, RegisterForm, EducationForm, JobForm, SkillForm, ReferenceForm, LanguageForm,ProjectForm, PersonalInformationForm
 
@@ -80,30 +77,6 @@ def indexpage(request):
 
 
 
-
-# def personalinformation(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-
-#         if user:
-#             personal_info, created = PersonalInformation.objects.get_or_create(user = user)
-#             if request.method == 'POST':         
-#                 form = PersonalInformationForm(request.POST, instance=personal_info)
-#                 if form.is_valid():
-#                     form.save()
-#                     return redirect(reverse('resume:personalinformation'))
-#             else:
-#                 form = PersonalInformationForm(instance=personal_info)
-#             context = {
-#                 'user': user,
-#                 'form': form,
-#             }
-#             return render(request, 'personalinformation.html', context)
-#         else:
-#             return HttpResponse("User not found.")
-#     else:
-#         return redirect(reverse('resume:login_user'))
 
 
 
@@ -182,141 +155,6 @@ def indexpage(request):
 #         return redirect(reverse('resume:login_user'))
     
 
-
-
-### this will work for accessing information but we cant edit and update
-# def personalinformation(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-
-#         if user:
-            
-#             personal_info = user.informations.first()
-#             educations = user.educations.all()
-#             jobs = user.jobs.all()
-#             projects = user.projects.all()
-#             skills = user.skills.all()
-#             languages = user.languages.all()
-#             references = user.references.all()
-
-#             context = {
-#                 'user': user,
-#                 'personal_info': personal_info,
-#                 'educations': educations,
-#                 'jobs': jobs,
-#                 'projects': projects,
-#                 'skills': skills,
-#                 'languages': languages,
-#                 'references': references,
-#             }
-
-#             return render(request, 'generalinformation.html', context)
-#         else:
-#             return HttpResponse("User not found.")
-#     else:
-#         return redirect(reverse('resume:login_user'))
-
-# def personalinformation(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-
-#         if user:
-#             personal_info, created =  PersonalInformation.objects.get_or_create(user=user)
-#             if request.method == 'POST':
-#                 form = PersonalInformationForm(request.POST, instance=personal_info)
-#                 if form.is_valid():
-#                     form.save()
-#                     return redirect(reverse('resume:personalinformation'))
-#             else:
-#                 form = PersonalInformationForm(instance=personal_info)
-#             personal_info = user.informations.first()
-#             context = {
-#                 'user': user,
-#                 'form': form,
-#                 'personal_info':personal_info,
-#             }
-#             return render(request, 'generalinformation.html', context)
-#         else:
-#             return HttpResponse("User not found.")
-#     else:
-#         return redirect(reverse('resume:login_user'))
-
-
-
-
-
-
-
-
-'''
-            # personal_info = user.informations.first()
-            educations = user.educations.all()
-            jobs = user.jobs.all()
-            projects = user.projects.all()
-            skills = user.skills.all()
-            languages = user.languages.all()
-            references = user.references.all()
-
-            context = {
-                'user': user,
-                'personal_info': personal_info,
-                'educations': educations,
-                'jobs': jobs,
-                'projects': projects,
-                'skills': skills,
-                'languages': languages,
-                'references': references,
-            }
-
-            return render(request, 'generalinformation.html', context)
-        else:
-            return HttpResponse("User not found.")
-    else:
-        return redirect(reverse('resume:login_user'))
-'''
-
-
-
-
-
-
-# def personalinformation(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-
-#         if user:
-#             personal_info, created = PersonalInformation.objects.get_or_create(user=user)
-
-#             if request.method == 'POST':
-#                 # Create or Update operation
-#                 form = PersonalInformationForm(request.POST, instance=personal_info)
-#                 if form.is_valid():
-#                     form.save()
-#                     return redirect(reverse('resume:personalinformation'))
-#             else:
-#                 # Read operation (displaying the form)
-#                 form = PersonalInformationForm(instance=personal_info)
-
-#             if 'delete' in request.POST:
-#                 # Delete operation
-#                 personal_info.delete()
-#                 return redirect(reverse('resume:personalinformation'))
-
-#             context = {
-#                 'user': user,
-#                 'form': form,
-#                 'personal_info': personal_info,
-#             }
-#             return render(request, 'generalinformation.html', context)
-#         else:
-#             return HttpResponse("User not found.")
-#     else:
-#         return redirect(reverse('resume:login_user'))
-    
-
 # # View function for CustomUser (User Details)
 # def user_details(request):
 #     if request.method == 'POST':
@@ -334,6 +172,9 @@ def indexpage(request):
 #     return render(request, 'user_details.html', context)
 
 #view function for general details
+
+
+## needs some logic for customization
 def userdetails(request):
     user_id = request.session.get('user_id')
     if user_id:
@@ -348,9 +189,9 @@ def userdetails(request):
                     if form.is_valid():
                         form.save()
                         return redirect(reverse('resume:userdetails'))
-                elif 'Delete' in request.POST:
-                    user_details.delete()
-                    return redirect(reverse('resume:userdetails'))    
+                # elif 'Delete' in request.POST:
+                #     user_details.delete()
+                #     return redirect(reverse('resume:userdetails'))    
                 
             else:
                 form = CustomUserForm(instance=user_details)
@@ -394,143 +235,222 @@ def personalinformation(request):
 
 
 
+### works well with adding and deleting information regarding education
+def education(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            education_info = Education.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    education_id = int(request.POST.get('delete'))
+                    education = get_object_or_404(Education, id=education_id, user=user)
+                    print(education_id,7777777)
+                    education.delete()
+                    return redirect(reverse('resume:education'))
 
-        
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = EducationForm(request.POST)
+                if form.is_valid():
+                    new_education = form.save(commit=False)
+                    new_education.user = user
+                    new_education.save()
+                    return redirect(reverse('resume:education'))
+            else:
+                form = EducationForm(initial={'user': user})
+                
+            context = {
+                'education_info': education_info,
+                'form': form,
+            }
 
-
-# # View function for Education
-# def education(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-#         if user:
-#             education_info = Education.objects.filter(user = user).first()
-#             form = EducationForm(instance=education_info)
-#             if request.method == 'POST':
-#                 # education_info , _ = Education.objects.get_or_create(user = user, title = request.POST.title )
-#                 education_info , _ = Education.objects.get_or_create(user = user)
-
-#                 form = EducationForm(request.POST, instance=education_info)
-#                 if form.is_valid():
-#                     form.save()
-#                     return redirect(reverse('resume:education'))
-#                 else:
-#                     form = EducationForm(instance=education_info)
-#                 form = EducationForm(request.POST, instance=education_info)
-#                 context = {
-#                     'user': user,
-#                     'education_info': education_info,
-#                     'form':form,
-#                 }
-#                 return render(request, 'education.html', context)
-#     else:
-#         return redirect(reverse('resume:login_user'))
+            return render(request, 'education.html', context)
+        else:
+            return HttpResponse("User not found.")
+    else:
+        return redirect(reverse('resume:login_user'))
     
 
-# View function for Job
+
+## adding and removing job 
 def job(request):
     user_id = request.session.get('user_id')
-    user = get_object_or_404(CustomUser, id=user_id)
-    if request.method == 'POST':
-        form = JobForm(request.POST)
-        if form.is_valid():
-            job = form.save(commit=False)
-            job.user = user
-            job.save()
-            return redirect(reverse('job', args=[user_id]))
-    else:
-        form = JobForm()
-    jobs = user.jobs.all()
-    context = {
-        'user': user,
-        'form': form,
-        'jobs': jobs,
-    }
-    return render(request, 'job.html', context)
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            job_info = Job.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    job_id = int(request.POST.get('delete'))
+                    job = get_object_or_404(Job, id=job_id, user=user)
+                    job.delete()
+                    return redirect(reverse('resume:job'))
 
-# View function for Project
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = JobForm(request.POST)
+                if form.is_valid():
+                    new_job = form.save(commit=False)
+                    new_job.user = user
+                    new_job.save()
+                    return redirect(reverse('resume:job'))
+            else:
+                form = JobForm(initial={'user': user})
+                
+            context = {
+                'job_info': job_info,
+                'form': form,
+            }
+
+            return render(request, 'job.html', context)
+        else:
+            return HttpResponse("User not found.")
+    else:
+        return redirect(reverse('resume:login_user'))
+
+
+## adding and removing project 
 def project(request):
     user_id = request.session.get('user_id')
-    user = get_object_or_404(CustomUser, id=user_id)
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            project = form.save(commit=False)
-            project.user = user
-            project.save()
-            return redirect(reverse('project', args=[user_id]))
-    else:
-        form = ProjectForm()
-    projects = user.projects.all()
-    context = {
-        'user': user,
-        'form': form,
-        'projects': projects,
-    }
-    return render(request, 'project.html', context)
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            project_info = Project.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    project_id = int(request.POST.get('delete'))
+                    project = get_object_or_404(Project, id=project_id, user=user)
+                    project.delete()
+                    return redirect(reverse('resume:project'))
 
-# View function for Skill
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = ProjectForm(request.POST)
+                if form.is_valid():
+                    new_project = form.save(commit=False)
+                    new_project.user = user
+                    new_project.save()
+                    return redirect(reverse('resume:project'))
+            else:
+                form = ProjectForm(initial={'user': user})
+                
+            context = {
+                'project_info': project_info,
+                'form': form,
+            }
+
+            return render(request, 'project.html', context)
+        else:
+            return HttpResponse("User not found.")
+    else:
+        return redirect(reverse('resume:login_user'))
+    
+
+## adding and removing skill 
 def skill(request):
     user_id = request.session.get('user_id')
-    user = get_object_or_404(CustomUser, id=user_id)
-    if request.method == 'POST':
-        form = SkillForm(request.POST)
-        if form.is_valid():
-            skill = form.save(commit=False)
-            skill.user = user
-            skill.save()
-            return redirect(reverse('skill', args=[user_id]))
-    else:
-        form = SkillForm()
-    skills = user.skills.all()
-    context = {
-        'user': user,
-        'form': form,
-        'skills': skills,
-    }
-    return render(request, 'skill.html', context)
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            skill_info = Skill.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    skill_id = int(request.POST.get('delete'))
+                    skill = get_object_or_404(Skill, id=skill_id, user=user)
+                    skill.delete()
+                    return redirect(reverse('resume:skill'))
 
-# View function for Language
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = SkillForm(request.POST)
+                if form.is_valid():
+                    new_skill = form.save(commit=False)
+                    new_skill.user = user
+                    new_skill.save()
+                    return redirect(reverse('resume:skill'))
+            else:
+                form = SkillForm(initial={'user': user})
+                
+            context = {
+                'skill_info': skill_info,
+                'form': form,
+            }
+
+            return render(request, 'skill.html', context)
+        else:
+            return HttpResponse("User not found.")
+    else:
+        return redirect(reverse('resume:login_user'))
+
+
+
+# adding and deleting languages
 def language(request):
     user_id = request.session.get('user_id')
-    user = get_object_or_404(CustomUser, id=user_id)
-    if request.method == 'POST':
-        form = LanguageForm(request.POST)
-        if form.is_valid():
-            language = form.save(commit=False)
-            language.user = user
-            language.save()
-            return redirect(reverse('language', args=[user_id]))
-    else:
-        form = LanguageForm()
-    languages = user.languages.all()
-    context = {
-        'user': user,
-        'form': form,
-        'languages': languages,
-    }
-    return render(request, 'language.html', context)
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            language_info = Language.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    language_id = int(request.POST.get('delete'))
+                    language = get_object_or_404(Language, id=language_id, user=user)
+                    language.delete()
+                    return redirect(reverse('resume:language'))
 
-# View function for Reference
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = LanguageForm(request.POST)
+                if form.is_valid():
+                    new_language = form.save(commit=False)
+                    new_language.user = user
+                    new_language.save()
+                    return redirect(reverse('resume:language'))
+            else:
+                form = LanguageForm(initial={'user': user})
+                
+            context = {
+                'language_info': language_info,
+                'form': form,
+            }
+
+            return render(request, 'language.html', context)
+        else:
+            return HttpResponse("User not found.")
+    else:
+        return redirect(reverse('resume:login_user'))
+    
+# adding and deleting references
 def reference(request):
     user_id = request.session.get('user_id')
-    user = get_object_or_404(CustomUser, id=user_id)
-    if request.method == 'POST':
-        form = ReferenceForm(request.POST)
-        if form.is_valid():
-            reference = form.save(commit=False)
-            reference.user = user
-            reference.save()
-            return redirect(reverse('reference', args=[user_id]))
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            reference_info = Reference.objects.filter(user=user)
+            if request.method == 'POST':
+                if 'delete' in request.POST:
+                    reference_id = int(request.POST.get('delete'))
+                    reference = get_object_or_404(Reference, id=reference_id, user=user)
+                    reference.delete()
+                    return redirect(reverse('resume:reference'))
+
+                # For other form submissions (Add and Save), we'll handle form validation
+                form = ReferenceForm(request.POST)
+                if form.is_valid():
+                    new_reference = form.save(commit=False)
+                    new_reference.user = user
+                    new_reference.save()
+                    return redirect(reverse('resume:reference'))
+            else:
+                form = ReferenceForm(initial={'user': user})
+                
+            context = {
+                'reference_info': reference_info,
+                'form': form,
+            }
+
+            return render(request, 'reference.html', context)
+        else:
+            return HttpResponse("User not found.")
     else:
-        form = ReferenceForm()
-    references = user.references.all()
-    context = {
-        'user': user,
-        'form': form,
-        'references': references,
-    }
-    return render(request, 'reference.html', context)
+        return redirect(reverse('resume:login_user'))
 
 
 def displayinformation(request):
@@ -567,67 +487,6 @@ def displayinformation(request):
             return HttpResponse("User not found.")
     else:
         return redirect(reverse('resume:login_user'))
-    
-# def downloadinpdf(request):
-#     user_id = request.session.get('user_id')
-#     if user_id:
-#         user = CustomUser.objects.filter(id=user_id).first()
-#         user_details = user
-#         if user:
-            
-#             user_details = user
-#             # import ipdb;ipdb.set_trace()
-            
-#             personal_info = user.informations.all()
-#             educations = user.educations.all()
-#             jobs = user.jobs.all()
-#             projects = user.projects.all()
-#             skills = user.skills.all()
-#             languages = user.languages.all()
-#             references = user.references.all()
-
-#             context = {
-#                 'user': user,
-#                 'user_details':user_details,
-#                 'personal_info': personal_info,
-#                 'educations': educations,
-#                 'jobs': jobs,
-#                 'projects': projects,
-#                 'skills': skills,
-#                 'languages': languages,
-#                 'references': references,
-#             }
-
-
-
-
-
-
-#             # context = {
-#             #     'user':user,
-#             #     'user_details':user_details,
-                
-#             # }
-#             template = get_template('displayinformation.html')
-#             html = template.render(context)
-        
-#             pdf_file = '/home/aayulogic/Nabaraj/ResumeBuilder/resume/generatedpdf/file.pdf'
-#             with open(pdf_file,'wb') as f:
-#                 pisa_status = pisa.CreatePDF(html, dest = f)
-
-#             if pisa_status.err:
-#                 return HttpResponse('Failed to generate PDF.',status = 500)
-#             else:
-#                 with open(pdf_file,'rb') as f:
-#                     response = HttpResponse(f.read(), content_type='application/pdf')
-#                     response['Content-Disposition'] = 'attachment; filename="user_details.pdf"'
-
-#                     # response = HttpResponse(f.read() )
-#                     return response
-#         else:
-#             return HttpResponse("User profile not found.")
-#     else:
-#         return(redirect(reverse('resume:login_user')))
 
   
 def downloadinpdf(request):
@@ -679,64 +538,3 @@ def downloadinpdf(request):
             return HttpResponse("User profile not found.")
     else:
         return(redirect(reverse('resume:login_user')))
-
-
-'''def education(request):
-    user_id = request.session.get('user_id')
-    if user_id:
-        user = CustomUser.objects.filter(id=user_id).first()
-        if user:
-            education_info= Education.objects.filter(user=user).first()
-            if request.method == 'POST':
-                form = EducationForm(request.POST, instance=education_info)
-                if 'Add' in request.POST:
-                    form.save(commit=False)
-                    form.instance.user = user
-                    form.save()
-                elif 'Delete' in request.POST:
-                    if education_info:
-                        education_info.delete()
-                        return redirect(reverse('resume:education'))
-                elif 'Save' in request.POST:
-                    if form.is_valid():
-                        form.save()
-                education_info = Education.objects.filter(user=user).first()
-            else:
-                form = EducationForm(instance=education_info)
-
-            context = {
-                'education_info': education_info,
-                'form': form,
-            }
-            return render(request, 'education.html', context)
-        else:
-            return HttpResponse("User not found.")
-    else:
-        return redirect(reverse('resume:login_user'))
-'''
-
-def education(request):
-    user_id = request.session.get('user_id')
-    if user_id:
-        user = CustomUser.objects.filter(id=user_id)
-        if user:
-            education_info = Education.objects.filter(user=user)
-            form = EducationForm(initial={'user': user})
-            if request.method == 'POST':
-
-                form = EducationForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                    return redirect(reverse('resume:education'))
-            context = {
-                'education_info': education_info,
-                'form': form,
-            }
-            return render(request, 'education.html', context)
-        else:
-            return HttpResponse("User not found.")
-    else:
-        return redirect(reverse('resume:login_user'))
-    
-
-
