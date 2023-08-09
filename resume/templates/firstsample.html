@@ -3,7 +3,7 @@
 <head>
     <title>CV - Template 1</title>
     <style>
-        body {
+                body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
         }
@@ -19,6 +19,7 @@
             margin-bottom: 40px;
         }
         .section-header {
+            font-weight: bold;
             font-size: 20px;
             color: #333;
             border-bottom: 2px solid #333;
@@ -28,14 +29,14 @@
         .section-content {
             font-size: 16px;
         }
+
     </style>
+    <title>First Sample</title>
 </head>
 <body>
-    <h1>CV - Template 1</h1>
     <div class="section">
-        <div class="section-header">General Information</div>
+        <div class="section-header">Personal Information</div>
         <div class="section-content">
-            <h2>User Details</h2>
             <p><strong>Full Name:</strong> {{ user_details.full_name }}</p>
             <p><strong>Address:</strong> {{ user_details.address }}</p>
             <p><strong>Gender:</strong> {{ user_details.get_gender_display }}</p>

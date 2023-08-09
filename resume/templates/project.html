@@ -34,11 +34,11 @@
             {% endfor %}
         </ul>
     </form>
-    {% for project in project_info %}
+    {% for one in project_info %}
         <form method="post">
             {% csrf_token %}
             <input type="hidden" name="delete" value="{{ project.id }}" > 
-            <strong> Delete : {{one.project}} ??</strong>
+            <strong> Delete : {{one.title}} ??</strong>
 
             <input type="submit" value="Delete">
         </form>

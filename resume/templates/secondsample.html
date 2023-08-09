@@ -4,22 +4,23 @@
     <title>CV - Template 2</title>
     <style>
         body {
-            font-family: Times New Roman, serif;
-            line-height: 1.6;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 2;
         }
         h1 {
-            color: #333;
+            color: #0c0a0a1c;
         }
         h2 {
-            color: #333;
+            color: #131213;
         }
         .section {
             margin-bottom: 40px;
         }
         .section-header {
             font-size: 18px;
-            color: #333;
+            color: #9093a37a;
             margin-bottom: 10px;
+            font-weight: bolder;
         }
         .section-content {
             font-size: 16px;
@@ -29,9 +30,8 @@
 <body>
     <h1>CV - Template 2</h1>
     <div class="section">
-        <div class="section-header">General Information</div>
+        <div class="section-header">Personal Information</div>
         <div class="section-content">
-            <h2>User Details</h2>
             <p><strong>Full Name:</strong> {{ user_details.full_name }}</p>
             <p><strong>Address:</strong> {{ user_details.address }}</p>
             <p><strong>Gender:</strong> {{ user_details.get_gender_display }}</p>
@@ -123,4 +123,133 @@
     </div>
 
 </body>
-</html>
+</html> 
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Second Sample</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .left-section {
+            float: left;
+            width: 45%;
+            margin-right: 5%;
+            background-color: #b1c9ce;
+        }
+        .right-section {
+            float: left;
+            width: 50%;
+            margin-left: auto;
+            background-color: rgba(114, 109, 109, 0.459);
+        }
+        .section-header {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .section-content {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CV - Template 3</h1>
+    <div class="section ">
+        <div class="section-header">General Information</div>
+        <div class="section-content">
+            <h2>User Details</h2>
+            <p><strong>Full Name:</strong> {{ user_details.full_name }}</p>
+            <p><strong>Address:</strong> {{ user_details.address }}</p>
+            <p><strong>Gender:</strong> {{ user_details.get_gender_display }}</p>
+            <p><strong>Phone:</strong> {{ user_details.phone }}</p>
+            <p><strong>Date of Birth:</strong> {{ user_details.date_of_birth }}</p>
+            <p><strong>Email:</strong> {{ user_details.email }}</p>
+            <p>profile</p>
+            {% if user_details.profile_picture %}
+            <img src="{{ user_details.profile_picture }}" alt="Profile Picture" width="150">
+            {% endif %}
+        </div>
+        <div class="section-header">Personal Information</div>
+        <div class="section-content">
+            <h2>Linkedin</h2>
+            <p>{{ personal_info.linkedin }}</p>
+            <h2>Github</h2>
+            <p>{{ personal_info.github }}</p>
+            <h2>Summary</h2>
+            <p>{{ personal_info.summary }}</p>
+            <h2>Languages</h2>
+            <ul>
+                {% for language in languages %}
+                    <li>{{ language.language }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="section right-section">
+        <div class="section-header">Education</div>
+        <div class="section-content">
+            <ul>
+                {% for education in educations %}
+                    <li><strong>{{ education.title }} in {{ education.faculty }}</strong> from {{ education.institution_name }}, {{ education.start_date }} - {{ education.end_date }} ({{ education.score }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section-header">Job History</div>
+        <div class="section-content">
+            <ul>
+                {% for job in jobs %}
+                    <li><strong>{{ job.title }} at {{ job.company }}</strong> as {{ job.position }} from {{ job.startdate }} - {{ job.enddate }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section-header">Projects</div>
+        <div class="section-content">
+            <ul>
+                {% for project in projects %}
+                    <li><strong>{{ project.title }}:</strong> {{ project.description }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section-header">Skills</div>
+        <div class="section-content">
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill.skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section-header">References</div>
+        <div class="section-content">
+            <ul>
+                {% for reference in references %}
+                    <li>{{ reference.reference }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html> -->

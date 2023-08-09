@@ -174,14 +174,16 @@ def logout_user(request):
 
 #view function for general details
 
-
+'''
 ## needs some logic for customization
 def userdetails(request):
+    print(77777777777777777,request.FILES.get('profile_picture'))
     user_id = request.session.get('user_id')
     if user_id:
         user = CustomUser.objects.filter(id=user_id).first()
         if user:
             # user_details = user
+
             user_details,created= CustomUser.objects.get_or_create(id = user_id)
             form = CustomUserForm(instance=user_details)
             if request.method == 'POST':
@@ -200,7 +202,43 @@ def userdetails(request):
             }
             return render(request, 'userdetails.html', context)
     else:
+        return redirect(reverse('resume:login_user'))'''
+
+
+
+def userdetails(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        user = CustomUser.objects.filter(id=user_id).first()
+        if user:
+            user_details, created = CustomUser.objects.get_or_create(id=user_id)
+            if request.method == 'POST':
+                form = CustomUserForm(request.POST, request.FILES, instance=user_details)
+                if form.is_valid():
+                    form.save()
+                    return redirect(reverse('resume:userdetails'))
+                else:
+                    print(form.errors)
+            else:
+                form = CustomUserForm(instance=user_details)
+            context = {
+                'form': form,
+                'user_details': user_details,
+            }
+            return render(request, 'userdetails.html', context)
+    else:
         return redirect(reverse('resume:login_user'))
+
+
+
+
+
+
+
+
+
+
+
         
 # View function for Personal Information
 def personalinformation(request):
@@ -499,7 +537,7 @@ def downloadinpdf(request):
             
             user_details = user
             
-            personal_info = user.informations.all()
+            personal_info = user.informations.first()
             educations = user.educations.all()
             jobs = user.jobs.all()
             projects = user.projects.all()
@@ -651,4 +689,47 @@ def home(request):
 #             return HttpResponse("User not found.")      
 #     else:
 #         return redirect(reverse('resume:login_user'))
+
+def under_20(request):
+    from django.utils import timezone
+    from datetime import timedelta
     
+    from dateutil.relativedelta import relativedelta
+    today = timezone.now().date()
+    # user = CustomUser.objects.filter(age<=20)
+    # age=relativedelta(today,self.date_of_birth).years
+    # return age
+
+    ## will return more accurate data working with age
+    point_twenty_ago = today - timedelta(days=365*20)
+    # point_twenty_ago = today - relativedelta(years=20)
+
+    age_with_user = CustomUser.objects.filter(date_of_birth__gt=point_twenty_ago)
+    context = {
+        'age_with_user':age_with_user,
+        'point_twenty_ago':point_twenty_ago,
+        
+    }
+    return render(request,'under20.html',context)
+
+    
+    
+'''def language_address_filter(request):
+    x = Reference.objects.filter(user__address="Balaju").values()
+    name = []
+    for i in x:
+        each = i['user__username']
+        name.append(each)
+    return HttpResponse(name)
+    # y = x.filter(user__languages__language='English').values()
+    # data = f"{x}\n\n\n111\n\n{y}"
+    # context = {
+    #     'data':data,
+    # }'''
+
+def language_address_filter(request):
+    x = Reference.objects.filter(user__address="Balaju", reference = "Tek").values()
+        
+
+    return HttpResponse(x)
+

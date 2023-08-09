@@ -17,6 +17,11 @@ urlpatterns = [
     path('reference/',views.reference, name = 'reference'),
     path('displayinformation/',views.displayinformation,name='displayinformation'),
     path('downloadinpdf/',views.downloadinpdf,name='downloadinpdf'),
+    path('under_20/',views.under_20,name='under_20'),
+    path('language_address_filter/',views.language_address_filter,name='language_address_filter'),
+
+
+
 
 
     

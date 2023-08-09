@@ -12,9 +12,16 @@
     <p>Phone: {{ user_details.phone }}</p>
     <p>Date of Birth: {{ user_details.date_of_birth }}</p>
     <p>Email: {{ user_details.email }}</p>
+    <p>Age: {{ user_details.get_age }}</p>
+
     {% if user_details.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="150">
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="150" height="180">
+    
     {% endif %}
+
+
+
+
 
     <h3>General Information</h3>
     <p>Linkedin: {{ personal_info.linkedin }}</p>
