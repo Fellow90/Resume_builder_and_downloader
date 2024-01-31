@@ -2,3 +2,5 @@ Django==4.2.3
 django-extensions==3.2.3
 Pillow==10.0.0
 xhtml2pdf==0.2.11
+python-dateutil==2.8.2
+pyscopg2==66.0.2
